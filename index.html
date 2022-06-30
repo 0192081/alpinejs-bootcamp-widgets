@@ -16,34 +16,37 @@
 <style>
     .message {
         background-color: palevioletred;
-        
-        
+
+
     }
+
     body {
         background-color: lightpink;
-        
-        
+
+
     }
-    .input>input{
+
+    .input>input {
         padding: 0.2em;
         margin: 0.2em;
 
     }
-    .input>label{
+
+    .input>label {
         display: inline-block;
         width: 15em;
         padding: 0.2em;
     }
 
-    h1{
+    h1 {
         text-align: center;
         font-style: italic;
         background-color: palevioletred;
     }
-    .h2{
+
+    .h2 {
         background-color: palevioletred;
     }
-    
 </style>
 
 <body>
@@ -58,14 +61,14 @@
       }">
         <h2> Greet Widget</h2>
         <div class="widget">
-        
-        
-        <label for="name">Please enter your name:</label>
-        <input type="text" x-model="name" id="name">
-        <div class="message" x-text="message"></div>
 
-        <button x-on:click="greetMe">Greet</button>
-    </div>
+
+            <label for="name">Please enter your name:</label>
+            <input type="text" x-model="name" id="name">
+            <div class="message" x-text="message"></div>
+
+            <button x-on:click="greetMe">Greet</button>
+        </div>
 
         <div x-data="{
             airtimeUsage : '',
@@ -76,70 +79,71 @@
             }
 
         }">
-        <h2>Enough airtime</h2>
-    
-        <div class="input">
-            <label for="usage">Please enter your airtime usage:</label>
-            <input type="text" x-model="airtimeUsage" id ="usage">
-        </div>
-        <div class="input">
-            <label for="amount">Amount available:</label>
-            <input type="text" x-model="availableAmount" id ="amount">
-        </div>
-        <div class="message" x-text="airtimeMessage"> 
-        </div>
-        <button x-on:click="calculate">Calculate airtime usage</button>
+            <h2>Enough airtime</h2>
 
-    </di>
-    <div x-data="{
+            <div class="input">
+                <label for="usage">Please enter your airtime usage:</label>
+                <input type="text" x-model="airtimeUsage" id="usage">
+            </div>
+            <div class="input">
+                <label for="amount">Amount available:</label>
+                <input type="text" x-model="availableAmount" id="amount">
+            </div>
+            <div class="message" x-text="airtimeMessage">
+            </div>
+            <button x-on:click="calculate">Calculate airtime usage</button>
+            </di>
+            <div x-data="{
         totalMessage: '',
         totalCost: '0.00',
-        phoneUsage: '',
+        phoneString: '',
         calculate(){
             this.totalMessage = totalPhoneBill (this.totalCalls, this.totalSms)
         }
 
     }">
-    <h2>Total Phone Bill</h2>
+                <h2>Total Phone Bill</h2>
 
-    <div class="input">
-        <label for="usage">Please enter your use(call ,sms):</label>
-        <input type="text" x-model="phoneUsage" id ="usage">
-    </div>
-    <div class="input">
-        <label for="cost">Total cost</label>
-        <input type="text" x-model="totalCost" id="total">
-    </div>
-    <div class="message" x-text="totalMessage"> 
-    </div>
-    
-    <button x-on:click="calculate">Calculate total cost</button>
-</div>
-<div x-data="{
-    feeMessage: '',
-    transportFee: '0.00',
-    shift: '',
-    calculate(){
-        this.feeMessage = this.transportFee (this.morningShift, this.afternoonShift, this.nightShift)
-    }
+                <div class="input">
+                    <label for="usage">Please enter your string (call, sms):</label>
+                    <input type="text" x-model="phoneString" id="string">
+                </div>
+                <div class="input">
+                    <label for="cost">Total cost</label>
+                    <input type="text" x-model="totalCost" id="total">
+                </div>
+                <div class="message" x-text="totalMessage">
+                </div>
 
-}">
-<h2>Transport fee</h2>
+                <button x-on:click="calculate">Calculate total </button>
+            </div>
 
-<div class="input">
-    <label for="shift">Enter your shift (morning, afternoon or night):</label>
-    <input type="text" x-model="shift" id ="shift">
-</div>
-<div class="input">
-        <label for="total">Transport fee</label>
-        <input type="text" x-model="transportFee" id="total">
-        </div>
-<div class="message" x-text="feeMessage"> 
-</div>
-<button x-on:click="calculate">Calculate transport fee</button>
+         <div x-data="{
+         totalMessage: '',
+         transportFee: '0.00',
+        calculate(){
+        this.transportFee = (this.morningShift, this.afternoonShift, this.nightShift)
+          }
+          }">
+                <h2>Transport fee</h2>
+                <input type="radio" id="morningShift" name="shift" value="morningShift">
+                <label for="html">Morning shift</label><br>
+                <input type="radio" id="afternoonShift" name="shift" value="afternoonShift">
+                <label for="afternoonShift">Afternoon shift</label><br>
+                <input type="radio" id="nightShift" name="shift" value="nightShift">
+                <label for="nightShift">Night shift</label>
+ 
+                <div class="input">
+                    <label for="total">Transport fee:</label>
+                    <input type="text" x-model="transportFee" id="total">
+                </div>
+                <div class="message" x-text="transportFee">
+                </div>
+                <button x-on:click="calculate">Calculate transport fee</button>
 
-    
-</div>
+
+            </div>
+
 </body>
 
 </html>
