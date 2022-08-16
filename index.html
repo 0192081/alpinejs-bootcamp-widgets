@@ -11,6 +11,10 @@
     <script src="total-phone-bill.js"></script>
     <script src="transport-fee.js"></script>
     <script src="//unpkg.com/alpinejs" defer></script>
+    <script src="greet-widget.js" defer></script>
+    <script src="enough-airtime-widget.js" defer></script>
+    <script src="total-phone-bill-widget.js" defer></script>
+    <script src="transport-fee-widget.js" defer></script>
 
 </head>
 <style>
@@ -56,7 +60,14 @@
      message : '',
      showGreeting : false,
      greetMe(){
-    this.message = greet(this.name);
+    this.message = greet(this.name); 
+
+    setTimeout (() => {
+        this.message = '';
+        this.name = '';
+        showGreeting = false;
+    },3000);
+
     }
       }">
         <h2> Greet Widget</h2>
@@ -69,80 +80,92 @@
 
             <button x-on:click="greetMe">Greet</button>
         </div>
+    </div>
 
-        <div x-data="{
+    <div x-data="{
             airtimeUsage : '',
-            availableAmount : '0.00',
+            availableAmount : '',
             airtimeMessage : '',
             calculate(){
                 this.airtimeMessage = enoughAirtime (this.airtimeUsage, this.availableAmount)
+
+                setTimeout (() => {
+                    this.airtimeMessage = '';
+                    this.availableAmount= '';
+                    this.airtimeUsage = '';
+                },3000);
             }
 
         }">
-            <h2>Enough airtime</h2>
+        <h2>Enough airtime</h2>
 
-            <div class="input">
-                <label for="usage">Please enter your airtime usage:</label>
-                <input type="text" x-model="airtimeUsage" id="usage">
-            </div>
-            <div class="input">
-                <label for="amount">Amount available:</label>
-                <input type="text" x-model="availableAmount" id="amount">
-            </div>
-            <div class="message" x-text="airtimeMessage">
-            </div>
-            <button x-on:click="calculate">Calculate airtime usage</button>
-            </di>
-            <div x-data="{
-        totalMessage: '',
-        totalCost: '0.00',
-        phoneString: '',
+        <div class="input">
+            <label for="usage">Please enter your airtime usage:</label>
+            <input type="text" x-model="airtimeUsage" id="usage">
+        </div>
+        <div class="input">
+            <label for="amount">Amount available:</label>
+            <input type="text" x-model="availableAmount" id="amount">
+        </div>
+        <div class="message" x-text="airtimeMessage">
+        </div>
+        <button x-on:click="calculate">Calculate airtime usage</button>
+        
+
+        <div x-data="{
+         airtimeUsage: '',
+        airtimeMessage: '',
         calculate(){
-            this.totalMessage = totalPhoneBill (this.totalCalls, this.totalSms)
+            //arlet (!)
+            this.airtimeMessage = totalPhoneBill (this.airtimeUsage)
+        
+         setTimeout (() => {
+                this.airtimeUsage = '';
+                this.airtimeMessage= '';
+            },3000);
         }
 
     }">
-                <h2>Total Phone Bill</h2>
-
-                <div class="input">
-                    <label for="usage">Please enter your string (call, sms):</label>
-                    <input type="text" x-model="phoneString" id="string">
-                </div>
-                <div class="input">
-                    <label for="cost">Total cost</label>
-                    <input type="text" x-model="totalCost" id="total">
-                </div>
-                <div class="message" x-text="totalMessage">
-                </div>
-
-                <button x-on:click="calculate">Calculate total </button>
+            <div x-data="totalPhoneBillWidget">
+                <h2>Total Phone Bill Widget</h2>
+            <div class="input">
+                <label for="usage">Please enter your string (call or sms)</label>
+                <input type="text" x-model="airtimeUsage" id="usage">
             </div>
 
-         <div x-data="{
-         totalMessage: '',
-         transportFee: '0.00',
-        calculate(){
-        this.transportFee = (this.morningShift, this.afternoonShift, this.nightShift)
-          }
-          }">
-                <h2>Transport fee</h2>
-                <input type="radio" id="morningShift" name="shift" value="morningShift">
-                <label for="html">Morning shift</label><br>
-                <input type="radio" id="afternoonShift" name="shift" value="afternoonShift">
-                <label for="afternoonShift">Afternoon shift</label><br>
-                <input type="radio" id="nightShift" name="shift" value="nightShift">
-                <label for="nightShift">Night shift</label>
- 
-                <div class="input">
-                    <label for="total">Transport fee:</label>
-                    <input type="text" x-model="transportFee" id="total">
-                </div>
-                <div class="message" x-text="transportFee">
-                </div>
-                <button x-on:click="calculate">Calculate transport fee</button>
-
-
+            <div>
+            <button x-on:click="calculate">Calculate Phone Bill </button>
+        </div>
+        <div class="message" x-text="airtimeMessage">
+        </div>
             </div>
+    </div>
+
+            <div x-data="{
+            shift: '',
+            message: '',
+            showFee: false,
+            showFee (){
+                this.message = transportFee (this.shift)
+
+                setTimeout (() => {
+                    this.shift= '';
+                    this.message = '';
+                    this.showFee= '';
+                   
+                },3000);
+            }
+        }">
+
+        <div x-data="transportFeeWidget">
+            <h2> Shift Widget</h2>
+
+            <div class="message" x-text="message">Your fee will be displayed here...</div>
+            <label for="shift">Please enter your shift (morning, afternoon or night):</label>
+            <input type="text" x-model="shift" id="shift">
+        </div>
+            <button x-on:click="showFee">Enter</button>
+        </div>
 
 </body>
 
